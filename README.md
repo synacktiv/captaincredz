@@ -29,7 +29,7 @@ options:
                         Weekday Warrior config file. Only active when specified
 ```
 
-For detailed information on the format of the configuration files, please refer to the wiki associated with this repository.
+For detailed information on the format of the configuration files, please refer to the [wiki](https://github.com/synacktiv/captaincredz/wiki) associated with this repository.
 
 ## Extending CaptainCredz
 
