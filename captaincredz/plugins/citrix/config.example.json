@@ -1,0 +1,39 @@
+{
+  "plugin" : [
+    {
+      "name": "citrix",
+      "args": {
+        "url1": "https://login.docutap.com/nf/auth",
+        "url2": "https://onebridge.tf1.fr/p/u",
+        "url3": "https://remoteapps.disney.com/nf/auth",
+        "url4": "https://login.strasbourg.eu/p/u",
+        "url5": "https://authentification.aphp.fr/nf/auth",
+        "url6": "https://secureaccess.nike.com/nf/auth",
+        "url": "https://auth-aug.man-es.com/nf/auth"
+      },
+      "headers": null,
+      "proxy": "http://localhost:8080",
+      "useragentfile": null,
+      "req_timeout": 60
+    }
+  ],
+
+  "post_actions": null,
+
+  "userfile" : "plugins/citrix/users.txt",
+  "passwordfile" : "plugins/citrix/pwds.txt",
+  "userpassfile" : null,
+
+  "jitter" : 0,
+  "delay_req" : 4,
+  "delay_user" : 30,
+  "chunk_size": 50,
+  "chunk_delay": 8,
+
+  "stop_on_success": true,
+
+  "log_file" : null,
+  "cache_file": null,
+
+  "verbose" : true
+}

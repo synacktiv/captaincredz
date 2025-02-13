@@ -1,0 +1,6 @@
+user1@corp.local
+user2@corp.local
+user3@corp.local
+user1@other.local
+user2@other.local
+plop@corp.local

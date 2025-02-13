@@ -1,0 +1,7 @@
+**/__pycache__/
+*.db
+*.log
+.venv/
+.idea/
+build/
+*.egg-info/

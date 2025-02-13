@@ -1,0 +1,32 @@
+{
+  "plugin" : [
+    {
+      "name": "ntlmssp",
+      "args": {
+        "url": "https://exchange.mysuperclient.local/EWS/",
+        "protocol": "negotiate"
+      },
+      "headers": null,
+      "proxy": "socks5h://127.0.0.1:1080",
+      "useragentfile": null
+    }
+  ],
+  "post_success": null,
+
+  "userfile" : "users.txt",
+  "passwordfile" : "passwordfile.txt",
+  "userpassfile" : null,
+
+  "jitter" : 0,
+  "delay_req" : 4,
+  "delay_user" : 30,
+  "chunk_size": 50,
+  "chunk_delay": 8,
+
+  "stop_on_success": false,
+
+  "log_file" : null,
+  "cache_file": null,
+
+  "verbose" : true
+}

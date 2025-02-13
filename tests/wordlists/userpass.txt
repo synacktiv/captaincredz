@@ -1,0 +1,2 @@
+user1@corp.local:passFromUserPass
+user1@other.local:otherPassword

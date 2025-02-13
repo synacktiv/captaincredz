@@ -1,0 +1,3 @@
+user1@domain.local@workstation1
+user2@domain.local@workstation2
+user3@domain.local@workstation3
