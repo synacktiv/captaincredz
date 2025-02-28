@@ -2,9 +2,15 @@
 
 ## TL;DR
 
+CaptainCredz is a modular and discreet password-spraying tool, with advanced features such as a cache mechanism and a fine-grained timing control.
+
+To start using captaincredz, the following lines may be useful:
+
 ```
 TEXT_EDITOR=nano
 
+git clone https://github.com/synacktiv/captaincredz
+cd captaincredz
 pip3 install -r requirements.txt
 $TEXT_EDITOR config.json
 $TEXT_EDITOR ww_config.json
@@ -14,7 +20,7 @@ python3 captaincredz.py --config config.json --weekday_warrior ww_config.json
 
 ## Installation
 
-Captaincredz can be installed with `pip(x) install .`. Alternatively, one can install the required dependencies and run captaincredz via the script `captaincredz.py`.
+Captaincredz can be installed with `pip(x) install .`. Alternatively, one can install the required dependencies and run captaincredz via the script `captaincredz.py`, by following the commands in the TL;DR section above.
 
 ## Usage
 
@@ -35,11 +41,15 @@ For detailed information on the format of the configuration files, please refer 
 
 ### Writing your own plugin
 
+If your identity provider is not yet supported by CaptainCredz, you may have to write your own plugin.
+
 The best thing you can do is look at the plugins already implemented, and write your own in the same way. In particular, adapting Credmaster plugins to CaptainCredz should not be too difficult, as the functions defined are the roughly the same.
 
 ### Writing your own post_action
 
-The best thing you can do is look at the basic post_actions already implemented, and write your own in the same way.
+Maybe you want to add an action after each success, like sending a Telegram message for instance. This is not yet implemented by CaptainCredz, but can be implemented fairly easily in the current state of things.
+
+The best thing you can do is look at the basic post_actions already implemented, and write your own in the same way. Post_actions receive a variety of data from the plugin in order to implement their logic.
 
 ## Acknowledgements
 
