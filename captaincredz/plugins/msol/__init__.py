@@ -5,9 +5,9 @@ class Plugin:
         self.requester = requester
         self.pluginargs = pluginargs
         if self.pluginargs is None or len(self.pluginargs) == 0:
-            self.pluginargs = {'url' : "https://login.microsoft.com"}
+            self.pluginargs = {'resource' : "https://login.microsoft.com"}
         else:
-            self.pluginargs['url'] = "https://login.microsoft.com"
+            self.pluginargs['resource'] = "https://login.microsoft.com"
     
     def validate(self):
         err = ""
@@ -22,7 +22,7 @@ class Plugin:
 
     def testconnect(self, useragent):
         # return True
-        r = self.requester.get(self.pluginargs["url"], headers={"User-Agent": useragent})
+        r = self.requester.get(self.pluginargs["resource"], headers={"User-Agent": useragent})
         return r.status_code != 504
     
     def test_authenticate(self, username, password, useragent):
@@ -59,7 +59,7 @@ class Plugin:
         }
 
         try:
-            resp = self.requester.post(f"{self.pluginargs['url']}/common/oauth2/token", headers=headers, data=body)
+            resp = self.requester.post(f"{self.pluginargs['resource']}/common/oauth2/token", headers=headers, data=body)
             data_response['request'] = resp
             if resp.status_code == 200:
                 data_response['result'] = "success"
@@ -128,6 +128,7 @@ class Plugin:
                     data_response['output'] = f"[-] POTENTIAL ({error_code}): Got an error we haven't seen yet for user {username}"
 
         except Exception as ex:
+            data_response['result'] = "failure"
             data_response['error'] = True
             data_response['output'] = str(ex.__repr__())
             pass
