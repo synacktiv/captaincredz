@@ -25,7 +25,7 @@ class Plugin:
 
     def testconnect(self, useragent):
         # return True
-        r = self.requester.get(self.pluginargs["resource"], headers={"User-Agent": useragent})
+        r = self.requester.get(self.pluginargs["url"], headers={"User-Agent": useragent})
         return r.status_code != 504
     
     def test_authenticate(self, username, password, useragent):
@@ -62,7 +62,7 @@ class Plugin:
         }
 
         try:
-            resp = self.requester.post(f"{self.pluginargs['resource']}/common/oauth2/token", headers=headers, data=body)
+            resp = self.requester.post(f"{self.pluginargs['url']}/common/oauth2/token", headers=headers, data=body)
             data_response['request'] = resp
             if resp.status_code == 200:
                 data_response['result'] = "success"
