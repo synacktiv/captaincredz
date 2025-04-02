@@ -4,9 +4,9 @@ class Plugin:
     def __init__(self, requester, pluginargs):
         self.requester = requester
         self.pluginargs = {'url' : "https://login.microsoft.com", 'resource': "https://graph.microsoft.com"}
-        if pluginargs['url'] is not None:
+        if 'url' in pluginargs and pluginargs['url'] is not None:
             self.pluginargs['url'] = pluginargs['url']
-        if pluginargs['resource'] is not None:
+        if 'resource' in pluginargs and pluginargs['resource'] is not None:
             self.pluginargs['resource'] = pluginargs['resource']
     
     def validate(self):
