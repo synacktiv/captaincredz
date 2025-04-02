@@ -5,9 +5,7 @@ class Plugin:
         self.requester = requester
         self.pluginargs = pluginargs
         if self.pluginargs is None or len(self.pluginargs) == 0:
-            self.pluginargs = {'resource' : "https://login.microsoft.com"}
-        else:
-            self.pluginargs['resource'] = "https://login.microsoft.com"
+            self.pluginargs = {'resource' : "https://graph.windows.net"}
     
     def validate(self):
         err = ""
