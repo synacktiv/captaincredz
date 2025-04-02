@@ -3,19 +3,24 @@ import random
 class Plugin:
     def __init__(self, requester, pluginargs):
         self.requester = requester
-        self.pluginargs = pluginargs
-        if self.pluginargs is None or len(self.pluginargs) == 0:
-            self.pluginargs = {'resource' : "https://login.microsoft.com"}
+        self.pluginargs = {'url' : "https://login.microsoft.com", 'resource': "https://graph.microsoft.com"}
+        if pluginargs['url'] is not None:
+            self.pluginargs['url'] = pluginargs['url']
+        if pluginargs['resource'] is not None:
+            self.pluginargs['resource'] = pluginargs['resource']
     
     def validate(self):
         err = ""
         val = True
+        if not "url" in self.pluginargs.keys():
+            val = False
+            err = "MSOL plugin needs a 'url' argument. Please add it to the config file, specifying the Microsoft login page (should be 'https://login.microsoft.com')."
         if not "resource" in self.pluginargs.keys():
             val = False
-            err = "MSOL plugin needs a 'resource' argument. Please add it to the config file, specifying the Microsoft resource (either 'https://graph.windows.net', 'https://graph.microsoft.com' or 'https://login.microsoft.com')."
-        if self.pluginargs["resource"] not in ['https://graph.windows.net', 'https://graph.microsoft.com', 'https://login.microsoft.com']:
+            err = "MSOL plugin needs a 'resource' argument. Please add it to the config file, specifying the Microsoft resource (either 'https://graph.windows.net' or 'https://graph.microsoft.com')."
+        if self.pluginargs["resource"] not in ['https://graph.windows.net', 'https://graph.microsoft.com']:
             val = False
-            err = "MSOL plugin error, the resource is unknown. It should either be 'https://graph.windows.net', 'https://graph.microsoft.com' or , 'https://login.microsoft.com'"
+            err = "MSOL plugin error, the resource is unknown. It should either be 'https://graph.windows.net' or 'https://graph.microsoft.com'"
         return val, err
 
     def testconnect(self, useragent):
