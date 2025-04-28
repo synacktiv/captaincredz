@@ -260,14 +260,15 @@ class Pool:
         self.credset.garbage_collect()
 
         # Step 3 : Set the ready state with the last timestamp for each user
+        ts_now = datetime.datetime.now().timestamp()
         for user in self.credset.users:
             usernames = user.usernames
             last_timestamp = self.cache.get_last_user_timestamp_multiplugin(
                 usernames, plugins
             )
-            ts_now = datetime.datetime.now().timestamp()
             last_sprayed_delay = ts_now - last_timestamp
             if last_sprayed_delay < self.sleeper._delays["user"]:
+                self.logger.debug(f"{usernames} was last tried {int(last_sprayed_delay)} (< delay_user) seconds ago according to the cache, will wait {self.sleeper._delays["user"] - last_sprayed_delay} seconds before spraying them")
                 user.ready = False
                 threading.Thread(
                     target=self.user_delay_thread,
