@@ -268,7 +268,7 @@ class Pool:
             )
             last_sprayed_delay = ts_now - last_timestamp
             if last_sprayed_delay < self.sleeper._delays["user"]:
-                self.logger.debug(f"{usernames} was last tried {int(last_sprayed_delay)} (< delay_user) seconds ago according to the cache, will wait {self.sleeper._delays["user"] - last_sprayed_delay} seconds before spraying them")
+                self.logger.debug(f"{usernames} was last tried {int(last_sprayed_delay)} (< delay_user) seconds ago according to the cache, will wait {self.sleeper._delays['user'] - last_sprayed_delay} seconds before spraying them")
                 user.ready = False
                 threading.Thread(
                     target=self.user_delay_thread,
