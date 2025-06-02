@@ -247,6 +247,10 @@ class Pool:
             exists = self.cache.user_exists_multiplugin(usernames, plugins)
             already_success = self.cache.user_success_multiplugin(usernames, plugins)
             if not (exists and not already_success):
+                reason = "captaincredz already found their password"
+                if not exists:
+                    reason = "this user does not exist / is invalid"
+                self.logger.debug(f"{usernames} is ignored because " + reason)
                 user.trimmed = True
         # 2.2 : remove already tried passwords for the rest of users
         for user in self.credset.users:
