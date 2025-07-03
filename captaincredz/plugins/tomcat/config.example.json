@@ -1,0 +1,34 @@
+{
+  "plugins": [
+    {
+      "name": "tomcat",
+      "args": {
+        "url": "http://127.0.0.1:8080/manager/html",
+        "method": "GET"
+      },
+      "headers": null,
+      "proxy": null,
+      "useragentfile": null,
+      "req_timeout": 60
+    }
+  ],
+
+  "post_actions": null,
+
+  "userfile": "captaincredz/plugins/tomcat/users.txt",
+  "passwordfile": "captaincredz/plugins/tomcat/pwds.txt",
+  "userpassfile": null,
+
+  "jitter": 0,
+  "delay_req": 4,
+  "delay_user": 30,
+  "chunk_size": 50,
+  "chunk_delay": 8,
+
+  "stop_on_success": false,
+
+  "log_file": null,
+  "cache_file": null,
+
+  "verbose": true
+}
