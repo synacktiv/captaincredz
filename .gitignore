@@ -5,3 +5,4 @@
 .idea/
 build/
 *.egg-info/
+lib/
