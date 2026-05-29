@@ -1,0 +1,28 @@
+{
+    "delay_user":120,
+    "delay_request":10,
+    "jitter":2,
+
+    "plugin":{
+        "name":"test",
+        "args": {
+            "proxy": null,
+            "headers": {},
+            "url": "http://127.0.0.1:1234/"
+        },
+        "useragents":[
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.3967.83",
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 15_7_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/151.0 Mobile/15E148 Safari/605.1.15",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+        ]
+    },
+    
+    "post_actions": {
+        "example_action": {
+            "triggers": ["success"],
+            "params": {
+                "phone_number": "+33611223344"
+            }
+        }
+    }
+}
