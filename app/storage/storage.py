@@ -49,6 +49,7 @@ class StorageNode:
                     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
                     username TEXT,
                     password TEXT,
+                    useragent TEXT,
                     plugin TEXT,
                     result TEXT CHECK(result IN ('success', 'potential', 'failure', 'inexistant')) NOT NULL,
                     output TEXT
@@ -195,6 +196,7 @@ class StorageNode:
                     'results', 
                     username=payload.get('username'), 
                     password=payload.get('password'), 
+                    useragent=payload.get('useragent'),
                     plugin=payload.get('plugin'), 
                     result=payload.get('result'), 
                     output=payload.get('output')

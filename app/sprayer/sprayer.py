@@ -185,9 +185,11 @@ def main():
                 attempts = 0
                 result = "BUG"
                 output = ""
+                useragent = ""
                 
                 while attempts < 3 and result == "BUG":
-                    result, output = run_plugin(plugin_name, pluginargs, post_actions, username, password, random.choice(useragents))
+                    useragent = random.choice(useragents)
+                    result, output = run_plugin(plugin_name, pluginargs, post_actions, username, password, useragent)
                     if result == "BUG":
                         attempts += 1
                         logger.debug(f"Plugin bug encountered for {username}. Retry {attempts}/3...")
@@ -208,6 +210,7 @@ def main():
                 payload = json.dumps({
                     "username": username,
                     "password": password,
+                    "useragent": useragent,
                     "plugin": plugin_name,
                     "result": result,
                     "output": output
