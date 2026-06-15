@@ -159,7 +159,7 @@ class StorageNode:
             # Return the first available password for our target user
             for username, password in rested_missing:
                 if username == target_user:
-                    return f"{username} {password}"
+                    return f"{username}#CAPTAIN#{password}"
             
             # If we reach here, there are missing pairs, but none belong to the currently rested users
             return "!!WAIT"

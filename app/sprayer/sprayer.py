@@ -178,7 +178,7 @@ def main():
             
             else:
                 # We received credentials
-                username, password = resp.split(' ', 1)
+                username, password = resp.split('#CAPTAIN#', 1)
                 logger.debug(f"Spraying {username} : {password}")
                 
                 # Attempt to spray with credentials, retrying up to 3 times on BUG
