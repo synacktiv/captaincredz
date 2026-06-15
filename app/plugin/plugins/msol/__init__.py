@@ -1,4 +1,5 @@
 import random
+import re
 
 class Plugin:
     def __init__(self, requester, pluginargs):
@@ -44,6 +45,13 @@ class Plugin:
         ]
         client_id, useragent = random.choice(client_ids)
 
+        # check that username is a valid email address
+        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if re.fullmatch(pattern, username) is None:
+            data_response['result'] = "failure"
+            data_response['error'] = True
+            data_response['output'] = "Username is not a valid email"
+            return data_response
 
         body = {
             'resource' : self.pluginargs["resource"],
