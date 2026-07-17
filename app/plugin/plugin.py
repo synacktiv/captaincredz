@@ -117,7 +117,7 @@ def main():
             headers = pluginargs.get("headers")
             
             if not all([plugin_name, username, password, ua]):
-                socket.send_json({"status": "BUG", "message": "Missing required fields (plugin, username, password, useragent)"})
+                socket.send_json({"status": "BUG", "message": "Missing required fields (plugin, username, password, useragent)", "useragent": ua})
                 continue
 
 
@@ -132,10 +132,10 @@ def main():
                     plugin_module = importlib.import_module(f"plugins.{plugin_name}")
                     plugin_class = getattr(plugin_module, "Plugin")
                 except ModuleNotFoundError:
-                    socket.send_json({"status": "BUG", "message": f"Plugin '{plugin_name}' not found."})
+                    socket.send_json({"status": "BUG", "message": f"Plugin '{plugin_name}' not found.", "useragent": ua})
                     continue
                 except AttributeError:
-                    socket.send_json({"status": "BUG", "message": f"Plugin '{plugin_name}' missing 'Plugin' class."})
+                    socket.send_json({"status": "BUG", "message": f"Plugin '{plugin_name}' missing 'Plugin' class.", "useragent": ua})
                     continue
                 # 5. Instantiate and Validate
                 plugin_instance = plugin_class(requester=Requester(proxy=proxy, headers=headers), pluginargs=pluginargs)
@@ -143,7 +143,7 @@ def main():
                 is_valid, err_msg = plugin_instance.validate()
             
                 if not is_valid:
-                    socket.send_json({"status": "BUG", "message": f"Plugin validation failed: {err_msg}"})
+                    socket.send_json({"status": "BUG", "message": f"Plugin validation failed: {err_msg}", "useragent": ua})
                     continue
 
             # 6. Execute authentication test
@@ -171,7 +171,7 @@ def main():
                         )
 
             # 8. Send the result back to the client
-            socket.send_json({"status": status, "message": message})
+            socket.send_json({"status": status, "message": message, "useragent": result_data.get("useragent", ua)})
 
         except KeyboardInterrupt:
             logger.debug("\nShutting down worker gracefully...")
@@ -181,7 +181,7 @@ def main():
             traceback.print_exc()
             # If the socket is holding a lock expecting a reply, free it up with an error message
             try:
-                socket.send_json({"status": "BUG", "message": f"Worker crash exception: {str(e)}"})
+                socket.send_json({"status": "BUG", "message": f"Worker crash exception: {str(e)}", "useragent": None})
             except Exception:
                 pass
 

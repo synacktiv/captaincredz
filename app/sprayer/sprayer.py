@@ -89,10 +89,11 @@ def run_plugin(plugin, pluginargs, post_actions, username, password, useragent):
 
         status = response.get("status", "BUG")
         message = response.get("message", "No message provided by worker")
+        useragent = response.get("useragent", useragent)
 
         if status not in valid_statuses:
-            return "BUG", f"Invalid status '{status}' received. Must be one of {valid_statuses}"
-        return status, message
+            return "BUG", f"Invalid status '{status}' received. Must be one of {valid_statuses}", useragent
+        return status, message, useragent
 
     except zmq.ZMQError as e:
         return "BUG", f"ZeroMQ networking error: {str(e)}"
@@ -189,7 +190,7 @@ def main():
                 
                 while attempts < 3 and result == "BUG":
                     useragent = random.choice(useragents)
-                    result, output = run_plugin(plugin_name, pluginargs, post_actions, username, password, useragent)
+                    result, output, useragent = run_plugin(plugin_name, pluginargs, post_actions, username, password, useragent)
                     if result == "BUG":
                         attempts += 1
                         logger.debug(f"Plugin bug encountered for {username}. Retry {attempts}/3...")

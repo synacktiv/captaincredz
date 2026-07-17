@@ -34,7 +34,8 @@ class Plugin:
             'result' : None,    # Can be "success", "failure" or "potential"
             'error' : False,
             'output' : "",
-            'request': None
+            'request': None,
+            'useragent': useragent
         }
 
         client_ids = [
@@ -44,6 +45,7 @@ class Plugin:
             ("27922004-5251-4030-b22d-91ecd9a37ea4", "Mozilla/5.0 (compatible; MSAL 1.0) PKeyAuth/1.0"),
         ]
         client_id, useragent = random.choice(client_ids)
+        data_response["useragent"] = useragent
 
         # check that username is a valid email address
         pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
