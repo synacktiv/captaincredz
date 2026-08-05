@@ -33,9 +33,10 @@ class StorageNode:
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
             
-            # Create sources table
+            # Create sources table (clear if it is already present)
+            cursor.execute('DROP TABLE IF EXISTS sources')
             cursor.execute('''
-                CREATE TABLE IF NOT EXISTS sources (
+                CREATE TABLE sources (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     type TEXT CHECK(type IN ('username', 'password', 'userpass')) NOT NULL,
                     data TEXT NOT NULL
