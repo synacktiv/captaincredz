@@ -1,2 +1,3 @@
 - Dry-run mode to show all the candidates and the estimated time
 - Show progress while spraying
+- Clean the "sources" table upon launch
