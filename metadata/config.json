@@ -2,6 +2,8 @@
     "delay_user":120,
     "delay_request":10,
     "jitter":2,
+    "stop_on": ["success"],
+    "skip_delay_on": ["inexistant"],
 
     "plugin":{
         "name":"test",
