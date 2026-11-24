@@ -147,6 +147,8 @@ def main():
     plugin_name = local_config.get('plugin')["name"]
     pluginargs = local_config.get('plugin')["args"]
     useragents = local_config.get('plugin')["useragents"]
+    stop_on = local_config.get('stop_on', [])
+    skip_delay_on = local_config.get('skip_delay_on', [])
 
     # 4. Send init_delays to storage process
     resp = send_req(storage_socket, f"init_delays {delay_user} {TIMER_ADDRESS}")
@@ -206,7 +208,8 @@ def main():
                 actual_request_delay = max(0, delay_request + random.uniform(0, jitter))
                 actual_user_delay = max(0, delay_user + random.uniform(0, jitter))
 
-                send_req(timer_socket, f"register_event 'sleep_request_over' {SPRAYER_ADDRESS} {actual_request_delay:.2f}")
+                if result not in skip_delay_on:
+                    send_req(timer_socket, f"register_event 'sleep_request_over' {SPRAYER_ADDRESS} {actual_request_delay:.2f}")
 
                 payload = json.dumps({
                     "username": username,
@@ -220,6 +223,15 @@ def main():
                 logger.info(f"[{plugin_name}] {result.upper()} {username}:{password} -- {output}")
                 
                 send_req(storage_socket, f"insert_result {payload}")
+
+                if result in stop_on:
+                    logger.info(f"Stopping on '{result}' according to configuration option stop_on")
+                    break
+
+                if result in skip_delay_on:
+                    logger.debug(f"'{result}' is in skip_delay_on, skipping delays for {username} and continuing immediately")
+                    is_ready_to_request = True
+                    continue
 
                 send_req(storage_socket, f"ready no {username}")
 
