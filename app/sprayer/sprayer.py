@@ -96,9 +96,9 @@ def run_plugin(plugin, pluginargs, post_actions, username, password, useragent):
         return status, message, useragent
 
     except zmq.ZMQError as e:
-        return "BUG", f"ZeroMQ networking error: {str(e)}"
+        return "BUG", f"ZeroMQ networking error: {str(e)}", useragent
     except Exception as e:
-        return "BUG", f"Unexpected error during plugin execution: {str(e)}"
+        return "BUG", f"Unexpected error during plugin execution: {str(e)}", useragent
     finally:
         socket.close()
 
@@ -193,7 +193,7 @@ def main():
                     result, output, useragent = run_plugin(plugin_name, pluginargs, post_actions, username, password, useragent)
                     if result == "BUG":
                         attempts += 1
-                        logger.debug(f"Plugin bug encountered for {username}. Retry {attempts}/3...")
+                        logger.debug(f"Plugin bug encountered for {username} (error : {output}). Retry {attempts}/3...")
                         time.sleep(1)
                     else:
                         break
